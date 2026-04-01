@@ -20,3 +20,5 @@ Resolver o problema do monitoramento manual de preços, criando um histórico es
 1. Clone o repositório:
    ```bash
    git clone [https://github.com/viniciusroland01/amazon-gpu-tracker.git](https://github.com/viniciusroland01/amazon-gpu-tracker.git)
+2. Instale as dependências : pip install requests beautifulsoup4
+3. Execute python main.py
