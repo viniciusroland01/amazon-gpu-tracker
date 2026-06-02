@@ -1,57 +1,62 @@
-# Amazon GPU Tracker
+# Cardápio Digital
 
-Script Python que monitora preços de placas de vídeo na Amazon e salva o histórico em banco de dados local. Desenvolvido para automatizar o acompanhamento de preços sem depender de ferramentas externas.
+Aplicação web para uma confeitaria feita em Django. O cliente navega pelo catálogo, monta o carrinho e finaliza o pedido pelo WhatsApp.
 
----
-
-## Como funciona
-
-1. Faz uma requisição HTTP para a página de resultados da Amazon com headers de User-Agent para evitar bloqueio
-2. Faz o parse do HTML com BeautifulSoup, extraindo nome, preço e link de cada produto
-3. Limpa o valor monetário — remove `R$`, pontos e vírgulas — e converte para `float`
-4. Filtra produtos sem título ou sem preço antes de salvar
-5. Persiste os dados no banco SQLite via SQL puro com parâmetros preparados
+Tem sistema de cadastro e login com perfil do cliente, carrinho persistido por sessão e formatação de preços no padrão brasileiro.
 
 ---
 
 ## Stack
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
-![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white)
-
-**Bibliotecas:** `requests` `beautifulsoup4` `sqlite3`
-
----
-
-## Estrutura
-
-```
-amazon-gpu-tracker/
-├── main.py        # ponto de entrada — coordena scraper e banco
-├── screaper.py    # requisição HTTP, parse do HTML e extração dos dados
-└── database.py    # criação da tabela, inserção e listagem via SQL puro
-```
+`Python` `Django` `SQLite` `HTML` `CSS`
 
 ---
 
 ## Como rodar
 
 ```bash
-# Clone o repositório
-git clone https://github.com/viniciusroland01/amazon-gpu-tracker.git
-cd amazon-gpu-tracker
+git clone https://github.com/viniciusroland01/cardapio-digital.git
+cd cardapio-digital
 
-# Instale as dependências
-pip install requests beautifulsoup4
+python -m venv venv
+venv\Scripts\activate
 
-# Execute
-python main.py
+pip install django pillow
+
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver
 ```
 
-Os dados coletados são salvos em `produtos.db` na raiz do projeto.
+Acesse `http://127.0.0.1:8000` para o cardápio e `/admin` para cadastrar produtos.
 
 ---
 
-## Observação
+---
 
-A Amazon bloqueia scraping com frequência. Caso a coleta retorne vazia, o User-Agent no `screaper.py` pode precisar ser atualizado com o do seu navegador atual.
+# Amazon GPU Tracker
+
+Script que monitora preços de GPUs na Amazon e salva o histórico em banco de dados local.
+
+Faz a requisição com headers para evitar bloqueio, extrai nome, preço e link de cada produto, limpa o valor monetário para `float` e persiste tudo no SQLite via SQL puro.
+
+---
+
+## Stack
+
+`Python` `BeautifulSoup` `Requests` `SQLite3`
+
+---
+
+## Como rodar
+
+```bash
+git clone https://github.com/viniciusroland01/amazon-gpu-tracker.git
+cd amazon-gpu-tracker
+
+pip install requests beautifulsoup4
+
+python main.py
+```
+
+Os dados são salvos em `produtos.db` na raiz do projeto.
